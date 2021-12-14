@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerticalTwoLayoutComponent } from './vertical-two.component';
+import { FooterComponent } from './footer.component';
 
-describe('VerticalTwoComponent', () => {
-  let component: VerticalTwoLayoutComponent;
-  let fixture: ComponentFixture<VerticalTwoLayoutComponent>;
+describe('FooterComponent', () => {
+  let component: FooterComponent;
+  let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerticalTwoLayoutComponent ]
+      declarations: [ FooterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VerticalTwoLayoutComponent);
+    fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

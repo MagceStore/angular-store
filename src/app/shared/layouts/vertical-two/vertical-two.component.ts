@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './vertical-two.component.html',
   styleUrls: ['./vertical-two.component.css']
 })
-export class VerticalTwoComponent implements OnInit {
+export class VerticalTwoLayoutComponent implements OnInit {
 
   constructor() { }
 
