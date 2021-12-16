@@ -8,6 +8,8 @@ import { SiderBarComponent } from './components/sider-bar/sider-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     LogoComponent,
     FooterComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -24,9 +27,11 @@ import { FooterComponent } from './components/footer/footer.component';
   exports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     HttpClientModule,
     VerticalTwoLayoutComponent,
     LogoComponent,
+    NotFoundComponent,
   ]
 })
 export class SharedModule { }

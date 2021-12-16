@@ -14,8 +14,6 @@ import { ContentModule } from './content/content.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    AuthModule,
-    ContentModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
