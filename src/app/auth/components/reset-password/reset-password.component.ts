@@ -35,14 +35,12 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(f: NgForm): void {
     const resetPass: ResetPassword = { ...f.value, token: this.token }
-    console.log(resetPass);
     this._service.resetPassword(resetPass)
       .subscribe({
-        next: () => {
-          this._router.navigate(['/auth/login']);
-        },
-        error: (e) => {
-          this.errors  = Object.values(e.errors);
+        next: (v) => {
+          if (v) {
+            this._router.navigate(['/auth/login']);
+          }
         }
       });
   }

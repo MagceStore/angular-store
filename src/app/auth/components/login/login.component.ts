@@ -31,9 +31,6 @@ export class LoginComponent implements OnInit {
             this._router.navigate([this._service.redirectUrl]);
           }
         },
-        error: (e) => {
-          this.errors  = Object.values(e.errors);
-        }
       });
   }
 }

@@ -23,10 +23,9 @@ export class ForgotPasswordComponent implements OnInit {
     this._service.forgotPassword(f.value.email)
       .subscribe({
         next: (response) => {
-          this._router.navigate(['/auth/reset-pass', { token: response.token }]);
-        },
-        error: (e) => {
-          this.errors  = Object.values(e.errors);
+          if (response.token) {
+            this._router.navigate(['/auth/reset-pass', { token: response.token }]);
+          }
         }
       });
   }

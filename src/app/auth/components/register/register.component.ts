@@ -22,16 +22,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(f: NgForm): void {
     const registerUser: Register = { ...f.value };
-    console.log(registerUser);
     this._service.register(registerUser)
       .subscribe({
         next: () => {
           if (this._service.isLoggedIn) {
             this._router.navigate(['']);
           }
-        },
-        error: (e) => {
-          this.errors  = Object.values(e.errors);
         }
       });
   }
