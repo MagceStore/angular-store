@@ -1,49 +1,33 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
-/** Type of the handleError function returned by GlobalErrorHandlerService.createHandleError */
-export type HandleError =
-  <T> (operation?: string, result?: T) => (error: HttpErrorResponse) => Observable<T>;
+import { ErrorHandler, Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class GlobalErrorHandlerService {
+export class GlobalErrorHandlerService implements ErrorHandler {
+  constructor() {}
 
-  constructor() { }
-
-  /** Create curried handleError function that already knows the service name */
-  createHandleError = (serviceName = '') => {
-    return <T>(operation = 'operation', result = {} as T) =>
-      this.handleError(serviceName, operation, result);
-  }
-
-  /**
-   * Returns a function that handles Http operation failures.
-   * This error handler lets the app continue to run as if no error occurred.
-   * @param serviceName = name of the data service that attempted the operation
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  handleError<T>(serviceName = '', operation = 'operation', result = {} as T) {
-
-    return (error: HttpErrorResponse): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      // console.error(error);
-
-      // TODO: better job of transforming error for user consumption
-      let message = error.message;
-      if (error.error) {
-            message = error.error.message;
+  handleError(error: any) {
+    let message = 'error for user:\t';
+    if (error.hasOwnProperty('status')) {
+      if (error.status === 0) {
+        // A client-side or network error occurred. Handle it accordingly.
+        message += '[client-side or network error]';
+      } else {
+        // The backend returned an unsuccessful response code.
+        message += `[http error code ${error.status}]`;
+        if (error.error.message) {
+          message += `[error message: ${error.error.message}]`;
         }
+      }
+    }
+    message += error.message;
+    console.log(message);
 
-      const messageWithPlace = `{${serviceName}} {${operation}} failed: ${message}`;
-      console.error(messageWithPlace);
-
-      // Let the app keep running by returning a safe result.
-      return of( result );
-    };
-
+    console.log('error for debug:', error);
   }
 }
+
+export const ErrorHandlerProvide = {
+  provide: ErrorHandler,
+  useClass: GlobalErrorHandlerService,
+};
