@@ -1,10 +1,10 @@
 <div class="min-h-full min-w-full flex bg-gray-100">
-  <div class="flex-none">
+  <div *ngIf="showSidebar" class="flex-none">
     <app-sider-bar></app-sider-bar>
   </div>
   <div class="flex-auto">
     <div>
-      <app-header></app-header>
+      <app-header (showSidebarEvent)="toggleSidebar($event)"></app-header>
     </div>
     <div>
       <router-outlet></router-outlet>

@@ -3,13 +3,16 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sider-bar',
   templateUrl: './sider-bar.component.html',
-  styleUrls: ['./sider-bar.component.css']
+  styleUrls: ['./sider-bar.component.css'],
 })
 export class SiderBarComponent implements OnInit {
+  public isShort: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  toggleShort() {
+    this.isShort = !this.isShort;
   }
-
 }

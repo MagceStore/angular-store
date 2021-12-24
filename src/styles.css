@@ -3,10 +3,15 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.ng-valid[required], .ng-valid.required  {
-  @apply border-l-4	border-l-green-600
+.ng-valid[required],
+.ng-valid.required {
+  @apply border-l-4	border-l-green-600;
 }
 
-.ng-touched.ng-invalid:not(form)  {
-  @apply border-l-4	border-l-red-600
+.ng-touched.ng-invalid:not(form) {
+  @apply border-l-4	border-l-red-600;
+}
+
+a.active {
+  @apply text-gray-700 bg-gray-200;
 }
