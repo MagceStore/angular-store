@@ -39,7 +39,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
         this._service.redirectUrl = state.url;
 
         // Redirect to the login page
-        return this._router.parseUrl('auth/login');
+        return this._router.parseUrl('auth');
       })
     );
 

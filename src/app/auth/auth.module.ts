@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ForgotPasswordComponent } from './components/reset-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AuthInterceptorProvide } from './interceptors/auth.interceptor';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,6 @@ import { AuthInterceptorProvide } from './interceptors/auth.interceptor';
     ForgotPasswordComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, SharedModule],
-  providers: [AuthInterceptorProvide],
+  providers: [AuthInterceptorProvide, AuthenticationService],
 })
 export class AuthModule {}

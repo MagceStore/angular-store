@@ -1,5 +1,6 @@
 import { catchError, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,31 +20,28 @@ export class AuthenticationService {
   isLoggedIn = false;
   redirectUrl: string = '';
 
-  private _backEndUrl = 'http://magce.store/api';
-  private _setTokenUrl = 'http://magce.store/sanctum/csrf-cookie';
-
   constructor(private http: HttpClient, private _router: Router) {}
 
   login(loginUser: Authentication) {
     this.initCSRFToken().subscribe();
     return this.http
-      .post<any>(this._backEndUrl + '/login', loginUser, httpOptions)
+      .post<any>(environment.backendUrl + '/login', loginUser, httpOptions)
       .pipe(tap(() => (this.isLoggedIn = true)));
   }
 
   initCSRFToken() {
-    return this.http.get(this._setTokenUrl, httpOptions).pipe();
+    return this.http.get(environment.backendCsrfUrl, httpOptions).pipe();
   }
 
   logout() {
     return this.http
-      .post<any>(this._backEndUrl + '/logout', [], httpOptions)
+      .post<any>(environment.backendUrl + '/logout', [], httpOptions)
       .pipe(tap(() => (this.isLoggedIn = false)));
   }
 
   checkLogin(): Observable<boolean> {
     return this.http
-      .get<isLoggedIn>(this._backEndUrl + '/isLoggedIn', httpOptions)
+      .get<isLoggedIn>(environment.backendUrl + '/isLoggedIn', httpOptions)
       .pipe(
         switchMap((response: any) => {
           return of(response.status);
@@ -54,14 +52,18 @@ export class AuthenticationService {
 
   register(registerUser: Register) {
     return this.http
-      .post<any>(this._backEndUrl + '/register', registerUser, httpOptions)
+      .post<any>(
+        environment.backendUrl + '/register',
+        registerUser,
+        httpOptions
+      )
       .pipe(tap(() => (this.isLoggedIn = true)));
   }
 
   forgotPassword(email: string) {
     return this.http
       .post<any>(
-        this._backEndUrl + '/forgot-password',
+        environment.backendUrl + '/forgot-password',
         { email: email },
         httpOptions
       )
@@ -70,7 +72,11 @@ export class AuthenticationService {
 
   resetPassword(resetPass: ResetPassword) {
     return this.http
-      .post<any>(this._backEndUrl + '/reset-password', resetPass, httpOptions)
+      .post<any>(
+        environment.backendUrl + '/reset-password',
+        resetPass,
+        httpOptions
+      )
       .pipe();
   }
 

@@ -22,4 +22,12 @@ interface isLoggedIn {
   status: boolean;
 }
 
-export { Authentication, Register, ResetPassword, isLoggedIn };
+interface User {
+  id?: number;
+  username: string;
+  email: string;
+  created_at?: string;
+  update_at?: string;
+}
+
+export { Authentication, Register, ResetPassword, isLoggedIn, User };

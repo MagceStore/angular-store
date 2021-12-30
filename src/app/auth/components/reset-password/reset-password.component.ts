@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
         tap((params) => {
           this.token = params.get('token');
           if (this.token === null) {
-            this._router.navigate(['/auth/login']);
+            this._router.navigate(['/auth']);
           }
         })
       )
@@ -41,7 +41,7 @@ export class ResetPasswordComponent implements OnInit {
     this._service.resetPassword(resetPass).subscribe({
       next: (v) => {
         if (v) {
-          this._router.navigate(['/auth/login']);
+          this._router.navigate(['/auth']);
         }
       },
       error: (error: HttpErrorResponse) => {
