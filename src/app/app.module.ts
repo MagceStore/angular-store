@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -10,7 +11,13 @@ import { ErrorHandlerProvide } from './error/global-error-handler.service';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
-  imports: [BrowserModule, HttpClientModule, AuthModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AuthModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+  ],
   providers: [ErrorHandlerProvide],
   bootstrap: [AppComponent],
 })
