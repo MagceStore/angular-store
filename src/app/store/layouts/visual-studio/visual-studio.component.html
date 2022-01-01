@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <app-side-global-menu></app-side-global-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="flex justify-between" color="primary">
+      <div>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </div>
+      <div class="flex">
+        <app-logo size="7"></app-logo>
+        <span>Angular Store</span>
+      </div>
+      <div>
+        <button type="button" aria-label="Toggle sidea ccount" mat-icon-button (click)="drawerEnd.toggle()">
+          <mat-icon aria-label="Side account toggle icon">account_circle</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+  <mat-sidenav #drawerEnd class="sidenav" position="end" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'">
+    <app-side-account-menu></app-side-account-menu>
+  </mat-sidenav>
+</mat-sidenav-container>

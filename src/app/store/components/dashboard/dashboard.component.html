@@ -1,123 +1,24 @@
-<div class="my-6 mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-4">
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4 border-l-4 border-indigo-500 shadow">
-      <div class="col-span-3">
-        <div class="mb-1 text-xs uppercase font-bold text-indigo-500">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-      <div class="col-span-1 flex justify-center place-items-center text-gray-300">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-        </svg>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4 border-b-4 border-indigo-500 shadow">
-      <div class="col-span-3">
-        <div class="mb-1 text-xs uppercase font-bold text-indigo-800">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-      <div class="col-span-1 flex justify-center place-items-center text-gray-300">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
-          </path>
-        </svg>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4  shadow">
-      <div class="col-span-4">
-        <div class="mb-1 text-xs uppercase font-bold ">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4  shadow">
-      <div class="col-span-4">
-        <div class="mb-1 text-xs uppercase font-bold ">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4  shadow">
-      <div class="col-span-4">
-        <div class="mb-1 text-xs uppercase font-bold ">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4  shadow">
-      <div class="col-span-4">
-        <div class="mb-1 text-xs uppercase font-bold ">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="flex-auto">
-
-
-    <div class="p-5 bg-white py-3 rounded-md grid grid-cols-4 grid-flow-col gap-4  shadow">
-      <div class="col-span-4">
-        <div class="mb-1 text-xs uppercase font-bold ">
-          EARNINGS (MONTHLY)
-        </div>
-        <div class="font-bold truncate text-xl ">
-          body,
-        </div>
-      </div>
-    </div>
-
-  </div>
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

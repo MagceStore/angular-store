@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerticalTwoLayoutComponent } from './vertical-two.component';
+import { SideAccountMenuComponent } from './side-account-menu.component';
 
-describe('VerticalTwoComponent', () => {
-  let component: VerticalTwoLayoutComponent;
-  let fixture: ComponentFixture<VerticalTwoLayoutComponent>;
+describe('SideAccountMenuComponent', () => {
+  let component: SideAccountMenuComponent;
+  let fixture: ComponentFixture<SideAccountMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerticalTwoLayoutComponent ]
+      declarations: [ SideAccountMenuComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VerticalTwoLayoutComponent);
+    fixture = TestBed.createComponent(SideAccountMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
