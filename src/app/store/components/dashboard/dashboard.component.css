@@ -19,3 +19,10 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+@media (prefers-color-scheme: dark) {
+  .mat-card {
+    background-color: #111827;
+    color: white;
+  }
+}

@@ -1,9 +1,9 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+<mat-sidenav-container class=" h-full">
+  <mat-sidenav #drawer class="sidenav dark:bg-gray-800 dark:text-white" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <app-side-global-menu></app-side-global-menu>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="dark:text-white">
     <mat-toolbar class="flex justify-between" color="primary">
       <div>
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
@@ -23,7 +23,7 @@
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </mat-sidenav-content>
-  <mat-sidenav #drawerEnd class="sidenav" position="end" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  <mat-sidenav #drawerEnd class="sidenav dark:bg-gray-800 dark:text-white" position="end" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'">
     <app-side-account-menu></app-side-account-menu>
   </mat-sidenav>

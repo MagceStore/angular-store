@@ -1,0 +1,10 @@
+@media (prefers-color-scheme: dark) {
+  .mat-toolbar {
+    background-color: #111827;
+    color: white;
+  }
+
+  .mat-list-base .mat-list-item {
+    color: white;
+  }
+}
