@@ -18,20 +18,10 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (this._service.isLoggedIn) {
-      return true;
-    }
-
+  ): Observable<boolean | UrlTree> {
     return this._service.checkLogin().pipe(
-      take(1),
       map((isLoggedIn) => {
         if (isLoggedIn) {
-          this._service.isLoggedIn = isLoggedIn;
           return true;
         }
 
@@ -40,19 +30,15 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
 
         // Redirect to the login page
         return this._router.parseUrl('auth');
-      })
+      }),
+      take(1)
     );
-
-    // return this.checkLogin(url);
   }
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> {
     return this.canActivate(childRoute, state);
   }
 }

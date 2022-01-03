@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { ForgotPassword } from '../../interfaces/anthentication';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -20,8 +21,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit(f: NgForm): void {
     console.log(f.value.email);
-    this._service.forgotPassword(f.value.email).subscribe({
+    const forgotPassword: ForgotPassword = { email: f.value.email };
+    this._service.forgotPassword(forgotPassword).subscribe({
       next: (response) => {
+        console.info('[ForgotPasswordComponent][onSubmit]:' + response.message);
         if (response.token) {
           this._router.navigate([
             '/auth/reset-pass',

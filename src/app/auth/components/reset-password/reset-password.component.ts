@@ -41,7 +41,7 @@ export class ResetPasswordComponent implements OnInit {
     this._service.resetPassword(resetPass).subscribe({
       next: (v) => {
         if (v) {
-          this._router.navigate(['/auth']);
+          this._router.navigate(['auth']);
         }
       },
       error: (error: HttpErrorResponse) => {

@@ -1,4 +1,4 @@
-import { Authentication } from 'src/app/auth/interfaces/anthentication';
+import { Login } from 'src/app/auth/interfaces/anthentication';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -23,10 +23,11 @@ export class LoginComponent implements OnInit {
   errors: any;
 
   onSubmit(f: NgForm): void {
-    const loginUser: Authentication = { ...f.value };
+    const loginUser: Login = { ...f.value };
     this._service.login(loginUser).subscribe({
-      next: () => {
-        if (this._service.isLoggedIn) {
+      next: (message) => {
+        console.info('[LoginComponent][login]:' + message);
+        if (this._service.isLoggedIn && this._service.user) {
           this._router.navigate([this._service.redirectUrl]);
         }
       },

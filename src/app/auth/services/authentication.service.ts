@@ -1,12 +1,12 @@
 import { catchError, Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Authentication, isLoggedIn, Register, ResetPassword } from '../interfaces/anthentication';
+import * as authInterface from '../interfaces/anthentication';
 
 const httpOptions = {
   responseType: 'json' as const,
@@ -17,71 +17,110 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
+  user: authInterface.User | null = null;
   redirectUrl: string = '';
 
   constructor(private http: HttpClient, private _router: Router) {}
 
-  login(loginUser: Authentication) {
-    this.initCSRFToken().subscribe();
+  login(loginUser: authInterface.Login): Observable<string> {
+    this.initCSRFToken();
     return this.http
-      .post<any>(environment.backendUrl + '/login', loginUser, httpOptions)
-      .pipe(tap(() => (this.isLoggedIn = true)));
+      .post<authInterface.LoginAndRegisterResponse>(
+        environment.backendUrl + '/login',
+        loginUser,
+        httpOptions
+      )
+      .pipe(
+        map((response) => {
+          this.loginSequent(response.user);
+          console.info('[AuthService][login]:' + response.message);
+          return response.message;
+        })
+      );
   }
 
-  initCSRFToken() {
-    return this.http.get(environment.backendCsrfUrl, httpOptions).pipe();
+  private loginSequent(user: authInterface.User): void {
+    this.isLoggedIn = true;
+    this.user = user;
   }
 
-  logout() {
+  private initCSRFToken() {
+    return this.http.get(environment.backendCsrfUrl, httpOptions).pipe(take(1));
+  }
+
+  logout(): Observable<string> {
     return this.http
-      .post<any>(environment.backendUrl + '/logout', [], httpOptions)
-      .pipe(tap(() => (this.isLoggedIn = false)));
+      .post<authInterface.MessageResponse>(
+        environment.backendUrl + '/logout',
+        [],
+        httpOptions
+      )
+      .pipe(
+        map((response) => {
+          this.logoutSequent();
+          console.info('[AuthService][logout]:' + response.message);
+          return response.message;
+        })
+      );
+  }
+
+  logoutSequent(): void {
+    this.isLoggedIn = false;
+    this.user = null;
   }
 
   checkLogin(): Observable<boolean> {
+    if (this.isLoggedIn) {
+      return of(this.isLoggedIn);
+    }
+
     return this.http
-      .get<isLoggedIn>(environment.backendUrl + '/isLoggedIn', httpOptions)
+      .get<authInterface.IsLoggedInResponse>(
+        environment.backendUrl + '/isLoggedIn',
+        httpOptions
+      )
       .pipe(
-        switchMap((response: any) => {
-          return of(response.status);
+        map((response) => {
+          this.loginSequent(response.user);
+          console.info('[AuthService][checkLogin]:' + response.status);
+          return response.status;
         }),
         catchError(() => of(false))
       );
   }
 
-  register(registerUser: Register) {
+  register(registerUser: authInterface.Register): Observable<string> {
     return this.http
-      .post<any>(
+      .post<authInterface.LoginAndRegisterResponse>(
         environment.backendUrl + '/register',
         registerUser,
         httpOptions
       )
-      .pipe(tap(() => (this.isLoggedIn = true)));
+      .pipe(
+        map((response) => {
+          this.loginSequent(response.user);
+          console.info('[AuthService][register]:' + response.message);
+          return response.message;
+        })
+      );
   }
 
-  forgotPassword(email: string) {
-    return this.http
-      .post<any>(
-        environment.backendUrl + '/forgot-password',
-        { email: email },
-        httpOptions
-      )
-      .pipe();
+  forgotPassword(
+    forgotPassword: authInterface.ForgotPassword
+  ): Observable<authInterface.ForgotPasswordResponse> {
+    return this.http.post<authInterface.ForgotPasswordResponse>(
+      environment.backendUrl + '/forgot-password',
+      forgotPassword
+    );
   }
 
-  resetPassword(resetPass: ResetPassword) {
-    return this.http
-      .post<any>(
-        environment.backendUrl + '/reset-password',
-        resetPass,
-        httpOptions
-      )
-      .pipe();
-  }
-
-  faildedLogin() {
-    this.isLoggedIn = false;
-    this._router.navigate(['/auth/login']);
+  resetPassword(
+    resetPass: authInterface.ResetPassword
+  ): Observable<authInterface.ResetPasswordResponse> {
+    return this.http.post<authInterface.ResetPasswordResponse>(
+      environment.backendUrl + '/reset-password',
+      resetPass
+    );
   }
 }

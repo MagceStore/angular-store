@@ -1,33 +1,58 @@
-interface Authentication {
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: string | null;
+  allow_ip: string;
+  created_at: string;
+  update_at: string;
+  deleted_at: string;
+}
+
+export interface Login {
   email: string;
   password: string;
   remember: boolean;
 }
 
-interface Register {
+export interface LoginAndRegisterResponse {
+  message: string;
+  user: User;
+}
+
+export interface Register {
   name: string;
   email: string;
   password: string;
   password_confirmation: string;
 }
 
-interface ResetPassword {
+export interface ForgotPassword {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  message: string;
+  token: string;
+}
+
+export interface ResetPassword {
   token: string;
   email: string;
   password: string;
   password_confirmation: string;
 }
 
-interface isLoggedIn {
+export interface ResetPasswordResponse {
+  message: string;
+  resetStatus: string;
+}
+
+export interface IsLoggedInResponse {
   status: boolean;
+  user: User;
 }
 
-interface User {
-  id?: number;
-  username: string;
-  email: string;
-  created_at?: string;
-  update_at?: string;
+export interface MessageResponse {
+  message: string;
 }
-
-export { Authentication, Register, ResetPassword, isLoggedIn, User };
