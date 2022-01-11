@@ -21,7 +21,13 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
+    const authReq = request.clone({
+      withCredentials: true,
+      responseType: 'json',
+    });
+    // console.log(authReq.urlWithParams);
+
+    return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           //unauthenticated

@@ -6,13 +6,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NoteListComponent } from './components/note/list/list.component';
 import { FooterComponent } from './layouts/contents/footer/footer.component';
 import {
     SideAccountMenuComponent
@@ -30,6 +36,7 @@ import { StoreRoutingModule } from './store-routing.module';
     FooterComponent,
     VisualStudioLayoutComponent,
     DashboardComponent,
+    NoteListComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +52,11 @@ import { StoreRoutingModule } from './store-routing.module';
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
   ],
 })
 export class StoreModule {}

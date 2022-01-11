@@ -4,14 +4,8 @@ import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import * as authInterface from '../interfaces/anthentication';
-
-const httpOptions = {
-  responseType: 'json' as const,
-  withCredentials: true,
-};
 
 @Injectable({
   providedIn: 'root',
@@ -21,15 +15,14 @@ export class AuthenticationService {
   user: authInterface.User | null = null;
   redirectUrl: string = '';
 
-  constructor(private http: HttpClient, private _router: Router) {}
+  constructor(private http: HttpClient) {}
 
   login(loginUser: authInterface.Login): Observable<string> {
     this.initCSRFToken();
     return this.http
       .post<authInterface.LoginAndRegisterResponse>(
         environment.backendUrl + '/login',
-        loginUser,
-        httpOptions
+        loginUser
       )
       .pipe(
         map((response) => {
@@ -46,15 +39,14 @@ export class AuthenticationService {
   }
 
   private initCSRFToken() {
-    return this.http.get(environment.backendCsrfUrl, httpOptions).pipe(take(1));
+    return this.http.get(environment.backendCsrfUrl).pipe(take(1));
   }
 
   logout(): Observable<string> {
     return this.http
       .post<authInterface.MessageResponse>(
         environment.backendUrl + '/logout',
-        [],
-        httpOptions
+        []
       )
       .pipe(
         map((response) => {
@@ -77,8 +69,7 @@ export class AuthenticationService {
 
     return this.http
       .get<authInterface.IsLoggedInResponse>(
-        environment.backendUrl + '/isLoggedIn',
-        httpOptions
+        environment.backendUrl + '/isLoggedIn'
       )
       .pipe(
         map((response) => {
@@ -94,8 +85,7 @@ export class AuthenticationService {
     return this.http
       .post<authInterface.LoginAndRegisterResponse>(
         environment.backendUrl + '/register',
-        registerUser,
-        httpOptions
+        registerUser
       )
       .pipe(
         map((response) => {
