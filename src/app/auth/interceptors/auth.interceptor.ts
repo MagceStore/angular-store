@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       withCredentials: true,
       responseType: 'json',
     });
-    // console.log(authReq.urlWithParams);
+    console.log(authReq.urlWithParams);
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {

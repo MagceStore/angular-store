@@ -28,9 +28,39 @@ export class NoteService {
     });
   }
 
-  getNoteById(id: number) {
+  getNoteById(id: string): Observable<Interface.Note> {
     return this.http.get<Interface.Note>(
       `${environment.backendUrl}/note/${id}`
     );
+  }
+
+  update(note: Interface.Note): Observable<Interface.Note> {
+    return this.http.put<Interface.Note>(
+      `${environment.backendUrl}/note/${note.id}`,
+      note
+    );
+  }
+
+  create(note: Interface.NewNote): Observable<Interface.Note> {
+    return this.http.post<Interface.Note>(
+      `${environment.backendUrl}/note/`,
+      note
+    );
+  }
+
+  delete(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${environment.backendUrl}/note/${id}`);
+  }
+
+  batchDelete(ids: number[]): Observable<boolean> {
+    if (ids.length === 0) {
+      throw Error('Please set the ids for bach Delete.');
+    }
+
+    let idsString: string = ids.join(',');
+    const params = new HttpParams().append('ids', idsString);
+    return this.http.delete<boolean>(`${environment.backendUrl}/note/batch`, {
+      params,
+    });
   }
 }

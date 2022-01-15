@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,14 +16,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NoteListComponent } from './components/note/list/list.component';
+import { NoteDetailComponent } from './components/note/detail/detail.component';
+import { NoteCreateDialog, NoteListComponent } from './components/note/list/list.component';
 import { FooterComponent } from './layouts/contents/footer/footer.component';
 import {
     SideAccountMenuComponent
@@ -37,6 +45,8 @@ import { StoreRoutingModule } from './store-routing.module';
     VisualStudioLayoutComponent,
     DashboardComponent,
     NoteListComponent,
+    NoteDetailComponent,
+    NoteCreateDialog,
   ],
   imports: [
     CommonModule,
@@ -57,6 +67,13 @@ import { StoreRoutingModule } from './store-routing.module';
     MatSortModule,
     MatProgressSpinnerModule,
     MatInputModule,
+    MatChipsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSnackBarModule,
   ],
 })
 export class StoreModule {}

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Create new note</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="fill">
+    <mat-label>name</mat-label>
+    <input matInput #name required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput #description></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="{name: name.value, description: description.value}" cdkFocusInitial>Create</button>
+</mat-dialog-actions>

@@ -17,6 +17,7 @@ export class TableDataSource extends DataSource<Note> {
   total: number = 0;
   pageSize: number = 10;
   currentPage = 0;
+  dataForSelection: Note[] = [];
 
   private dataSubject = new BehaviorSubject<Note[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -48,26 +49,11 @@ export class TableDataSource extends DataSource<Note> {
     this.loadingSubject.complete();
   }
 
-  getData(pageIndex = 1, pageSize = 10, $sorts = '', $search = '') {
-    this.loadingSubject.next(true);
-    this._service
-      .getNoteList(pageIndex, pageSize, $sorts, $search)
-      .pipe(finalize(() => this.loadingSubject.next(false)))
-      .subscribe({
-        next: (response: Notes) => {
-          this.dataSubject.next(response.data);
-          this.pageSize = response.per_page;
-          this.total = response.total;
-        },
-        error: () => of([]),
-      });
-  }
-
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  updateData(filter = ''): void {
+  getData(search = ''): void {
     let sorts = '';
     if (this.sort && this.sort.active && this.sort.direction != '') {
       sorts = this.sort.active;
@@ -85,11 +71,18 @@ export class TableDataSource extends DataSource<Note> {
       pageSize = this.paginator.pageSize;
     }
 
-    let search = '';
-    if (filter != '') {
-      search = filter;
-    }
-
-    this.getData(index, pageSize, sorts, search);
+    this.loadingSubject.next(true);
+    this._service
+      .getNoteList(index, pageSize, sorts, search)
+      .pipe(finalize(() => this.loadingSubject.next(false)))
+      .subscribe({
+        next: (response: Notes) => {
+          this.dataSubject.next(response.data);
+          this.dataForSelection = response.data;
+          this.pageSize = response.per_page;
+          this.total = response.total;
+        },
+        error: () => of([]),
+      });
   }
 }
